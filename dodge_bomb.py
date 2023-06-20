@@ -41,7 +41,7 @@ def main():
                 return
         if kk_rct.colliderect(bd_rct):
             kk_img = pg.transform.rotozoom(go_img, 0, 2.0)
-            start=time.time()
+            start = time.time()
             if start>3:
                 
                 print("ゲームオーバー")
