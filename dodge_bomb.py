@@ -1,7 +1,7 @@
 import sys
 import pygame as pg
 import random
-
+import time
 WIDTH, HEIGHT = 1600, 900
 delta = {
     pg.K_UP: (0, -5),
@@ -19,6 +19,7 @@ def check_bound(rect: pg.rect) ->tuple[bool,bool]:
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))
+    go_img = pg.image.load("ex02/fig/6.png")
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
@@ -26,7 +27,7 @@ def main():
     bd_img.set_colorkey((0, 0, 0))
     kk_rct = kk_img.get_rect()
     kk_rct.center = 900, 400
-    pg.draw.circle(bd_img, (255, 0, 0), (10, 10), 10)
+    a=pg.draw.circle(bd_img, (255, 0, 0), (10, 10), 10)
     x = random.randint(0, WIDTH)
     y = random.randint(0, HEIGHT)
     bd_rct = bd_img.get_rect()
@@ -39,8 +40,13 @@ def main():
             if event.type == pg.QUIT: 
                 return
         if kk_rct.colliderect(bd_rct):
-            print("ゲームオーバー")
-            return 
+            kk_img = pg.transform.rotozoom(go_img, 0, 2.0)
+            start=time.time()
+            if start>3:
+                
+                print("ゲームオーバー")
+                return 
+            
         key_lst = pg.key.get_pressed()
         sum_mv = [0, 0]
         for k, mv in delta.items():
@@ -59,9 +65,10 @@ def main():
         if not tate:
             vy *= -1
         screen.blit(bd_img, bd_rct)
+        #if ~~~~~:
+            #kk_img=pg.transform.flip(kk_img, True, False)
         pg.display.update()
         tmr += 1
-        clock.tick(10)
         clock.tick(50)
 
 
